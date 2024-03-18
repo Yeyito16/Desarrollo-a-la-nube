@@ -1,0 +1,70 @@
+html,body {
+    background-image: url(../Resources/Images/bg.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh; 
+    font-family: 'Numans', sans-serif;
+}
+
+.container {
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    height: auto; 
+    width: 450px;
+    background-color: rgba(0,0,0,0.7); 
+    padding: 20px;
+}
+
+.card-header h3 {
+    text-align: center;
+}
+
+.campo-usuario,
+.campo-clave {
+    margin-bottom: 20px;
+}
+
+.campo-usuario label,
+.campo-clave label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.campo-usuario input,
+.campo-clave input {
+    width: calc(100% - 20px); 
+    padding: 8px 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.login_btn, .atras_btn {
+    color: #fff;
+    background-color: #0d6efd; 
+    width: 100%; 
+    margin-bottom: 10px; 
+    border-radius: 20px; 
+}
+
+.login_btn:hover, .atras_btn:hover {
+    color: #000; 
+    background-color: #fff;
+}
+
+
+.links {
+    color: #000000;
+    margin-top: 10px;
+}
+
+.links a {
+    margin-left: 4px;
+}
