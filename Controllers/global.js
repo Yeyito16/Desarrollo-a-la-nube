@@ -1,8 +1,11 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js'
-
+//import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics .js'
 import { 
   getAuth,
-  signInWithEmailAndPassword  
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  sendPasswordResetEmail,
 } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js'
 
 const firebaseConfig = {
@@ -17,10 +20,33 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+//const analytics = getAnalytics();
 const auth = getAuth(app);
 
 //metodo de inicio de sesión
-export const loginvalidation=(email,password)=>
-  signInWithEmailAndPassword(auth, email, password)
+export const loginvalidation=(email,password)=> signInWithEmailAndPassword(auth, email, password)
 
+export const logout=()=>signOut(auth);
 
+export function userstate() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      console.log(uid)
+    } else {
+      window.location.href="../index.html"
+    }
+  });
+}
+
+export function forgotkey() {
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      alert('consultar correo electronico')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+}
