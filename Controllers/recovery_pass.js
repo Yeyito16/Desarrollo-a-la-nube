@@ -32,7 +32,7 @@ async function salvarpass()
       const errorCode = error.code;
       const errorMessage = error.message;
       console.error(errorCode, errorMessage);
-      // Handle error appropriately
+      
   }
 }
 

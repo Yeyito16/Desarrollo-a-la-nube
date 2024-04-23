@@ -30,13 +30,13 @@ registro.addEventListener("click", (e) => {
     var email = document.getElementById('emailreg').value;
     var contraseña = document.getElementById('passwordreg').value;
 
-    // Validar contraseña
+    
     if (!validarContraseña(contraseña)) {
         alert('La contraseña debe tener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula y un carácter especial.');
-        return; // Salir del proceso de registro
+        return; 
     }
 
-    // Proceder con el registro de usuario
+    
     createUserWithEmailAndPassword(auth, email, contraseña).then(cred => {
         alert("Usuario creado");
         sendEmailVerification(auth.currentUser).then(() => {
