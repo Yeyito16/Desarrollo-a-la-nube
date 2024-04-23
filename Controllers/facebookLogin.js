@@ -13,16 +13,16 @@ const firebaseConfig = {
 import { 
   getAuth,
   signInWithPopup, 
-  GoogleAuthProvider
+  FacebookAuthProvider
 } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js'
 
-const googleButton = document.querySelector('#googleLogin')
+const facebookButton = document.querySelector('#facebookLogin')
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+const provider = new FacebookAuthProvider();
 
-googleButton.addEventListener('click', async () => {
+facebookButton.addEventListener('click', async () => {
   try {
     const credentials = await signInWithPopup(auth, provider);
     console.log(credentials);

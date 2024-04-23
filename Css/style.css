@@ -27,7 +27,25 @@ body {
     
 }
 
+.btn-facebook-login {
+    
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    
+}
+
 .google-icon {
+    height: 20px;
+    margin-right: 10px;
+}
+
+.facebook-icon {
     height: 20px;
     margin-right: 10px;
 }
