@@ -1,12 +1,18 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js'
-//import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics .js'
-import { 
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js'
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+import {
   getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
   signOut,
   sendPasswordResetEmail,
-} from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js'
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  onAuthStateChanged,
+  sendEmailVerification,
+  createUserWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOscswkecJASf1VRibhLSKNWrvnWg-RMM",
@@ -18,36 +24,37 @@ const firebaseConfig = {
   measurementId: "G-QN84ZMX30C"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics();
-const auth = getAuth(app);
+export {
+  auth
+};
 
-//metodo de inicio de sesión
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { collection, addDoc, db };
+
+export function AddData(id, name, direccion, telefono, fecha) {
+  // Function implementation
+}
+
+export const googleProvider = new GoogleAuthProvider();
+export const facebookProvider = new FacebookAuthProvider();
+
+export const signInPopup = (provider) => signInWithPopup(auth, provider);
+
+export const sendEmailToResetPassword = async (email) => sendPasswordResetEmail(auth, email)
+export const sendEmail = async (auth, user) => sendEmailVerification(user);
+export const logOut = async () => signOut(auth);
+
 export const loginvalidation=(email,password)=> signInWithEmailAndPassword(auth, email, password)
 
-export const logout=()=>signOut(auth);
+export const createUserEmailPassword = async (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
+export const loginWithGoogle = async (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
-export function userstate() {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      console.log(uid)
-    } else {
-      window.location.href="../index.html"
-    }
-  });
-}
+export const loginWithFacebook = async (email, password) =>createUserWithEmailAndPassword(auth, email, password);
 
-export function forgotkey() {
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      alert('consultar correo electronico')
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
-}
+export const onAuthChanged = (user) => onAuthStateChanged(auth, user);
+
+export const deleteCurrentUser = async () => auth.currentUser.delete();

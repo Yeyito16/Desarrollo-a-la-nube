@@ -1,22 +1,7 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js'
+import {
+    loginvalidation,
+  } from "./global.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBOscswkecJASf1VRibhLSKNWrvnWg-RMM",
-    authDomain: "desarrollo-a-la-nube.firebaseapp.com",
-    projectId: "desarrollo-a-la-nube",
-    storageBucket: "desarrollo-a-la-nube.appspot.com",
-    messagingSenderId: "326403613720",
-    appId: "1:326403613720:web:19f119e0e1624178b00f6d",
-    measurementId: "G-QN84ZMX30C"
-  };
-
-import { 
-    getAuth,
-    signInWithEmailAndPassword,
-} from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js'
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
 const formularioLogin = document.querySelector('#loginbtn');
 
@@ -27,7 +12,7 @@ formularioLogin.addEventListener("click", async (evento) => {
     const contraseña = document.getElementById('edtpassword').value;
 
     try {
-        const credenciales = await signInWithEmailAndPassword(auth, email, contraseña);
+        const credenciales = await loginvalidation(email, contraseña);
         console.log(credenciales);
 
         const modal = new bootstrap.Modal(document.querySelector('#signinModal'));

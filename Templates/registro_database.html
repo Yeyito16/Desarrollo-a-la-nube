@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link href="../Css/registro.css" rel="stylesheet" type="text/css"/>
+	<title>Formulario de registro</title>
+</head>
+<body>
+	<h2>Registro</h2>
+	<form>
+
+		<label for="number">Cedula:</label>
+		<input type="number" class="input" id="user-cc" required>
+		<label for="text">Nombre Completo:</label>
+        <input type="text" class="input" id="edtname" required>
+		<label for="text">Dirección:</label>
+        <input type="text" class="input" id="user-address" required>
+		<label for="text">Telefono:</label>
+		<input type="number" class="input" id="user-phone" required>
+		<label for="text">Fecha de nacimiento:</label>
+		<input type="date" class="input" id="edtdate" required>
+		
+	</form>
+    <button type="button" id="btnreg">Registrarse</button>
+    <p>¿Ya tienes una cuenta? <a href="../index.html">Inicia sesión aquí</a>.</p>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+	<script type="module" src="../Controllers/database.js"></script>
+</body>
+
+</html>
