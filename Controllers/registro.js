@@ -1,7 +1,6 @@
 import { createUserEmailPassword, sendEmail, auth } from "./global.js";
 
 function validarContraseña(contraseña) {
-    // Mínimo 8 caracteres, al menos una mayúscula, una minúscula y un carácter especial
     const regexContraseña = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
     return regexContraseña.test(contraseña);
 }
@@ -9,14 +8,23 @@ function validarContraseña(contraseña) {
 registro.addEventListener("click", (e) => {
     var email = document.getElementById('emailreg').value;
     var contraseña = document.getElementById('passwordreg').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
 
-    
+    if (email.trim() === "") {
+        alert('Ingrese correo electrónico.');
+        return;
+    }
+
+    if (contraseña !== confirmPassword) {
+        alert('Las contraseñas no coinciden.');
+        return;
+    }
+
     if (!validarContraseña(contraseña)) {
         alert('La contraseña debe tener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula y un carácter especial.');
         return; 
     }
 
-    
     createUserEmailPassword(email, contraseña).then(cred => {
         alert("Usuario creado");
         sendEmail(auth, auth.currentUser).then(() => {
