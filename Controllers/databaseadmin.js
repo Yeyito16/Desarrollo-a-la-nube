@@ -41,19 +41,14 @@ async function register() {
     try {
         await registerUser(email, password, id, nombre, direccion, telefono, fecha);
         const confirmacion = confirm('Registro exitoso de ' + nombre );
-        
-        const user = auth.currentUser;
-        if (user) {
-            await sendEmailVerification(user.email); // Envía el correo de verificación al correo electrónico del usuario
-            alert('Se ha enviado un correo de verificación a ' + email);
-            await auth.signOut();
-            
+        sendEmailVerification(auth, auth.currentUser).then(() => {
+            alert('Se ha enviado un correo de verificación');
+        });
             if (confirmacion) {
                 const email = prompt('Ingrese el correo electrónico del admin:');
                 const password = prompt('Ingrese la contraseña del admin:');
                 if (email && password ) {
                     await loginvalidation(email, password);
-                    alert('Sesión iniciada exitosamente como administrador con rol: ' + rol);
                     window.location.href = '../Templates/adminhome.html'; 
                 } else {
                     alert('Por favor ingresa tanto el correo electrónico como la contraseña del administrador.');
@@ -61,9 +56,6 @@ async function register() {
             } else {
                 alert('No se pudo verificar el correo electrónico.');
             }
-        } else {
-            alert('Usuario no autenticado.');
-        }
     } catch (error) {
         console.error("Error al registrar el usuario: ", error);
         alert('Error al registrar, por favor intenta nuevamente');
