@@ -1,50 +1,38 @@
 //import { getData } from "./database.js";
 
 import {
-  onAuthChanged,
   logOut,
-  deleteCurrentUser,
+  sendEmailToResetPassword,
 } from "./global.js";
 
-
-const cerrar=document.getElementById('btnlogout');
-const eliminar = document.getElementById('btnborrar');
+const cerrar = document.getElementById('btnlogout');
+const recuperar = document.getElementById('btnrecuperar');
 
 document.addEventListener("DOMContentLoaded", () => {
-  let currentUser;
 
-  onAuthChanged((user) => {
-    if (!user) {
+  async function sesion() {
+    try {
+      await logOut();
+      alert('Sesión cerrada');
       window.location.href = "../index.html";
-    } else {
-      currentUser = user;
-      getData(user.uid).then((e) => {
-          let data = e.data();
-          userData.innerHTML = 
-          `
-            <h3>Cedula:</h3> ${data["cc"]} 
-            <h3>Nombre:</h3> ${data["fullName"]} 
-            <h3>Direccion:</h3> ${data["address"]} 
-            <h3>Telefono:</h3> ${data["phone"]} 
-            <h3>Correo:</h3> ${data["email"]} 
-            <h3>Fecha De Naciemiento:</h3> ${data["bornDate"]} 
-          `
-      });
+    } catch (error) {
+      alert('Sesión no cerrada');
     }
-  });
+  }
 
-  async function sesion(){
-    const validar = logOut()
-    const verificar = await validar
-
-    .then((verificar) => {
-        alert('Sesión cerrada')
-        window.location.href="../index.html"
-      }).catch((error) => {
-        alert('Sesión no cerrada')
-      });
-}
+  async function enviarCorreoRecuperacion() {
+    const email = prompt("Introduce tu dirección de correo electrónico:");
+    if (email) {
+      try {
+        await sendEmailToResetPassword(email);
+        alert('Se envio un correo para el restablecimiento de la contraseña.');
+      } catch (error) {
+        console.error('Error al enviar el correo para el restablecimiento de la contraseña:', error.message);
+        alert('Error al enviar el correo para el restablecimiento de la contraseña.');
+      }
+    }
+  }
 
   cerrar.addEventListener("click", sesion);
-  eliminar.addEventListener("click", deleteCurrentUser);
+  recuperar.addEventListener("click", enviarCorreoRecuperacion);
 });

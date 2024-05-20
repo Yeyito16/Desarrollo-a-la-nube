@@ -1,4 +1,4 @@
-import { createUserEmailPassword, sendEmail, auth } from "./global.js";
+import {createUserEmailPassword, sendEmail, auth } from "./global.js";
 
 function validarContraseña(contraseña) {
     const regexContraseña = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;

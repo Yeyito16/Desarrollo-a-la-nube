@@ -2,24 +2,41 @@ import {
     loginvalidation,
   } from "./global.js";
 
+import { db, doc, getDoc } from './firebase.js';
 
 const formularioLogin = document.querySelector('#loginbtn');
 
 formularioLogin.addEventListener("click", async (evento) => {
-    evento.preventDefault(); // Evitar el envío predeterminado del formulario
+    evento.preventDefault(); 
 
     const email = document.getElementById('edtuser').value;
     const contraseña = document.getElementById('edtpassword').value;
 
     try {
         const credenciales = await loginvalidation(email, contraseña);
-        console.log(credenciales);
+        const user = credenciales.user;
+        console.log("Credenciales del usuario:", credenciales);
+
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        
+        if (!userDoc.exists()) {
+            console.error("Documento del usuario no encontrado:", user.uid);
+            throw new Error("No se encontró el documento del usuario.");
+        }
+
+        const userData = userDoc.data();
+        console.log("Datos del usuario:", userData);
 
         const modal = new bootstrap.Modal(document.querySelector('#signinModal'));
         modal.hide();
         
         alert('Autenticación exitosa: ' + credenciales.user.email);
-        window.location.href = '../Templates/home.html';
+
+        if (userData.role === "admin") {
+            window.location.href = '../Templates/adminhome.html'; 
+        } else {
+            window.location.href = '../Templates/home.html'; 
+        }
         
     } catch(error) {
         const errorCode = error.code;
