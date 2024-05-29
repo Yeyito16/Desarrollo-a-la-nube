@@ -73,21 +73,23 @@ async function buscando(){
 
   if (docSnap.exists()) {
     console.log("Document data:", docSnap.data());
-    let html=""
-    html=`
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">${docSnap.data().id}</h5>
-                <p class="card-text">${docSnap.data().email}</p>
-                <p class="card-text">${docSnap.data().nombre}</p>
-            </div>
-        </div>
-    `
-      Visualizar.innerHTML=html
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
-    }
+    const id = docSnap.data().id;
+    const email = docSnap.data().email;
+    const nombre = docSnap.data().nombre;
+    const fecha = docSnap.data().fecha;
+
+    const queryParams = new URLSearchParams({
+        id: id,
+        email: email,
+        nombre: nombre,
+        fecha: fecha
+    }).toString();
+
+    window.location.href = `../Templates/viewdatabase.html?${queryParams}`;
+} else {
+    console.log("No such document!");
+    alert('No se encontró ningún registro con esa cédula.');
+}
 }
 
   window.addEventListener('DOMContentLoaded', () => {
