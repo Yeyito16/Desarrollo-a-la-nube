@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js'
-import {collection, addDoc, getDocs , doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-import { db } from './firebase.js'; 
+import {collection, addDoc, getDocs , doc, getDoc, setDoc, getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { } from './firebase.js'; 
 
 
 import {
@@ -28,6 +28,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore();
+
 
 export {
   app,
@@ -85,20 +87,19 @@ export const onAuthChanged = (user) => onAuthStateChanged(auth, user);
 
 export const deleteCurrentUser = async () => auth.currentUser.delete();
 
-export const registerUser = async (email, password, id, nombre, direccion, telefono, fecha) => {
+export const registerUser = async (email, id, password , nombre, direccion, telefono, fecha) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: email,
+    await setDoc(doc(db, "users",id), {
       id: id,
+      email: email,
       nombre: nombre,
       direccion: direccion,
       telefono: telefono,
       fecha: fecha,
-      role: 'user' 
+      role: 'user'
     });
 
     console.log('Documento del usuario creado con UID:', user.uid);
@@ -107,6 +108,9 @@ export const registerUser = async (email, password, id, nombre, direccion, telef
     throw error;
   }
 };
+
+export const searchReg=(id)=>
+  getDoc(doc(db,"users",id))
 
 //Consultar registros
 export const realusers=()=>

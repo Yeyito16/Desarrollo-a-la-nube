@@ -1,8 +1,10 @@
-import { auth, registerUser, sendEmailVerification } from "./global.js";
+import { auth, registerUser, searchReg, sendEmailVerification } from "./global.js";
 import {} from "./firebase.js";
 //import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const registro = document.getElementById('btnreg');
+const search=document.getElementById("btnserach");
+const Visualizar = document.getElementById('container1')
 
 async function register() {
     const email = document.getElementById('emailreg').value;
@@ -19,13 +21,18 @@ async function register() {
         return regexContraseña.test(password);
     }
 
-    if (!email || !password || !id || !nombre || !direccion || !telefono || !fecha) {
+    function validarEmail(email) {
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regexEmail.test(email);
+  }
+
+    if (!email || !password || !confirmPassword || !id || !nombre || !direccion || !telefono || !fecha) {
         alert('Rellena todos los campos.');
         return;
       }
 
-    if (email.trim() === "") {
-        alert('Ingrese correo electrónico.');
+    if (!validarEmail(email)) {
+        alert('Ingrese un correo electrónico válido.');
         return;
     }
 
@@ -40,7 +47,7 @@ async function register() {
     }  
     
     try {
-        const user = await registerUser(email, password, id, nombre, direccion, telefono, fecha);
+        const user = await registerUser(email, id, password, nombre, direccion, telefono, fecha);
             alert('Registro exitoso de ' + nombre);
 
         if (auth.currentUser) {
@@ -57,7 +64,33 @@ async function register() {
         alert('Error al registrar, por favor intenta nuevamente');
       }
     }
-    
-    window.addEventListener('DOMContentLoaded', () => {
-      registro.addEventListener('click', register);
-    });
+  
+async function buscando(){
+  const cedula = document.getElementById("user-cc").value;
+
+  const validar = searchReg (cedula)
+  const docSnap = await validar
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+    let html=""
+    html=`
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${docSnap.data().id}</h5>
+                <p class="card-text">${docSnap.data().email}</p>
+                <p class="card-text">${docSnap.data().nombre}</p>
+            </div>
+        </div>
+    `
+      Visualizar.innerHTML=html
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+}
+
+  window.addEventListener('DOMContentLoaded', () => {
+    registro.addEventListener('click', register);
+    search.addEventListener("click", buscando);
+  });

@@ -16,6 +16,7 @@
 		<input type="password" id="confirmPassword" name="password" required>
 		<label for="number">Cedula:</label>
 		<input type="number" class="input" id="user-cc" required>
+		<button type="submit" id="btnserach" value="Search">Buscar</button>
 		<label for="text">Nombre Completo:</label>
         <input type="text" class="input" id="edtname" required>
 		<label for="text">Dirección:</label>
@@ -28,6 +29,13 @@
 	</form>
     <button type="button" id="btnreg">Registrarse</button>
     <p>¿Ya tienes una cuenta? <a href="../index.html">Inicia sesión aquí</a>.</p>
+
+	<article>
+		<div class="container" id="container1">
+
+		</div>
+	</article>
+	
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
 	<script type="module" src="../Controllers/database.js"></script>
