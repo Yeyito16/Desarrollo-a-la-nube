@@ -74,21 +74,25 @@ async function buscando(){
   if (docSnap.exists()) {
     console.log("Document data:", docSnap.data());
     const id = docSnap.data().id;
-    const email = docSnap.data().email;
-    const nombre = docSnap.data().nombre;
-    const fecha = docSnap.data().fecha;
+      const email = docSnap.data().email;
+      const nombre = docSnap.data().nombre;
+      const direccion = docSnap.data().direccion;
+      const telefono = docSnap.data().telefono;
+      const fecha = docSnap.data().fecha;
 
     const queryParams = new URLSearchParams({
-        id: id,
-        email: email,
-        nombre: nombre,
-        fecha: fecha
+      id: id,
+      email: email,
+      nombre: nombre,
+      direccion: direccion,
+      telefono: telefono,
+      fecha: fecha
     }).toString();
 
     window.location.href = `../Templates/viewdatabase.html?${queryParams}`;
 } else {
     console.log("No such document!");
-    alert('No se encontró ningún registro con esa cédula.');
+    alert('No existe ese documento');
 }
 }
 
