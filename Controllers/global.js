@@ -6,6 +6,7 @@ import { } from './firebase.js';
 import {
   getAuth,
   signOut,
+  deleteUser,
   sendPasswordResetEmail,
   signInWithPopup,
   signInWithEmailAndPassword,
@@ -30,6 +31,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore();
 
+export {
+  deleteUser
+};
 
 export {
   app,

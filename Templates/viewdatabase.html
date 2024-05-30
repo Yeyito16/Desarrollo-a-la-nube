@@ -19,7 +19,15 @@
                 <button class="button button-danger" id="deleteBtn">Borrar</button>
             </div>
         </div>
+        <div class="update-form" id="updateForm" style="display:none;">
+            <h5>Actualizar Datos</h5>
+            <input type="text" id="updateNombre" placeholder="Nombre">
+            <input type="text" id="updateDireccion" placeholder="Dirección">
+            <input type="text" id="updateTelefono" placeholder="Teléfono">
+            <input type="date" id="updateFecha" placeholder="Fecha de Nacimiento">
+            <button class="button" id="saveUpdateBtn">Guardar Cambios</button>
+        </div>
     </div>
-    <script src="../Controllers/resultados.js"></script>
+    <script src="../Controllers/resultados.js" type="module"></script>
 </body>
 </html>
